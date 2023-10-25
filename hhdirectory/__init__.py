@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):
@@ -28,6 +28,11 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+    
+    @app.errorhandler(404)
+    def page_not_found(error):
+        """Custom 404 page."""
+        return render_template('contact/blank.html'), 404
 
     from . import db
     db.init_app(app)
