@@ -9,7 +9,7 @@
 {% block nav%}
 <ul class="nav nav-pills">
     <li class="nav-item"><a href="{{ url_for('contact.index') }}" class="nav-link active" aria-current="page">Home</a></li>
-    <li class="nav-item"><a href="#" class="nav-link">Favorites</a></li>
+    <li class="nav-item"><a href="{{ url_for('contact.show_favorites') }}" class="nav-link" aria-current="page">Favorites</a></li>
     <li class="nav-item"><a href="{{ url_for('contact.create') }}" class="nav-link">Add contact</a></li>
 </ul>
 {% endblock %}
