@@ -63,3 +63,20 @@ def show_favorites():
         " ORDER BY name ASC"
     ).fetchall()
     return render_template("contact/favorites.html", contacts=contacts)
+
+
+@bp.route("/contact/<contact_id>/")
+def detail(contact_id):
+    """Show detail of a contact."""
+    # Get contact from database
+    db = get_db()
+    contact = db.execute(
+        "SELECT id, name, lastname, phone, email, address, favorite"
+        " FROM contact"
+        " WHERE id = ?",
+        (contact_id,),
+    ).fetchone()
+    # Check if contact exists
+    if not contact:
+        return redirect(url_for("contact.index"))
+    return render_template("contact/detail.html", contact=contact)

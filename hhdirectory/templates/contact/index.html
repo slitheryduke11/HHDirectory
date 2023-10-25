@@ -26,7 +26,7 @@
 <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
     <div class="list-group">
         {% for contact in contacts %}
-        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <a href="{{ url_for('contact.detail', contact_id=contact.id)}}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
             <!-- Contact image (Flaticon.com) -->
             <img src="{{ url_for('static', filename='assets/brand/contact_picture.png')}}" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
             <div class="d-flex gap-2 w-100 justify-content-between">
