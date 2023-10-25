@@ -50,3 +50,16 @@ def create():
         return redirect(url_for("contact.index"))
     # Show form to create contact
     return render_template("contact/create.html")
+
+
+@bp.route("/favorites/")
+def show_favorites():
+    """Show only favorite contacts, ordered by name."""
+    db = get_db()
+    contacts = db.execute(
+        "SELECT id, name, lastname, phone, favorite"
+        " FROM contact"
+        " WHERE  favorite = 1"
+        " ORDER BY name ASC"
+    ).fetchall()
+    return render_template("contact/favorites.html", contacts=contacts)
