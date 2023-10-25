@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block imports %}
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/list-groups/">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block nav%}
+<ul class="nav nav-pills">
+    <li class="nav-item"><a href="{{ url_for('contact.index') }}" class="nav-link" aria-current="page">Home</a></li>
+    <li class="nav-item"><a href="#" class="nav-link">Favorites</a></li>
+    <li class="nav-item"><a href="{{ url_for('contact.create') }}" class="nav-link active">Add contact</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+    <div class="contact-form">
+        <h1 class="h3 mb-3 fw-normal">Add contact</h1>
+        <form class="row g-3" action="{{ url_for('contact.create') }}" method="POST">
+            <div class="col-sm-6">
+                <label for="name" class="form-label">Name</label>
+                <input 
+                    type="text" 
+                    class="form-control {% if error and not previous_data['name'] %}is-invalid{% endif %}" 
+                    name="name" 
+                    id="name" 
+                    value="{% if previous_data %}{{previous_data['name']}}{% endif %}"
+                >
+                <div id="validation_server_name_feedback" class="invalid-feedback">
+                    Please, enter a name.
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="lastname" class="form-label">Last name</label>
+                <input 
+                    type="text" 
+                    class="form-control {% if error and not previous_data['lastname'] %}is-invalid{% endif %}" 
+                    name="lastname" 
+                    id="lastname" 
+                    value="{% if previous_data %}{{previous_data['lastname']}}{% endif %}"
+                >
+                <div id="validation_server_lastname_feedback" class="invalid-feedback">
+                    Please, enter a last name.
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="phone" class="form-label">Phone</label>
+                <input 
+                    type="text" 
+                    class="form-control {% if error and not previous_data['phone'] %}is-invalid{% endif %}" 
+                    name="phone" 
+                    id="phone" 
+                    value="{% if previous_data %}{{previous_data['phone']}}{% endif %}"
+                >
+                <div id="validation_server_phone_feedback" class="invalid-feedback">
+                    Please, enter a phone number.
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="email_username" 
+                        id="email_username" 
+                        value="{% if previous_data %}{{previous_data['email_username']}}{% endif %}"
+                    >
+                    <span class="input-group-text" id="prepend">@</span>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="email_domain" 
+                        id="email_domain" 
+                        aria-describedby="prepend" 
+                        value="{% if previous_data %}{{previous_data['email_domain']}}{% endif %}"
+                    >
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="address" class="form-label">Address</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    name="address" 
+                    id="address" 
+                    value="{% if previous_data %}{{previous_data['address']}}{% endif %}"
+                >
+            </div>
+            <div class="col-12">
+                <div class="form-check">
+                    <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        name="favorite" 
+                        id="favorite" 
+                        {% if previous_data and previous_data['favorite'] %}checked{% endif %}
+                    >
+                    <label class="form-check-label" for="favorite">
+                        Mark as favorite
+                    </label>
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

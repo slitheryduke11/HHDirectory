@@ -18,7 +18,7 @@
 
 
 /* LIST-GROUPS */
-.list-group {
+.list-group, .contact-form {
   width: 100%;
   max-width: 760px;
   margin-inline: 1.5rem;
