@@ -36,9 +36,8 @@ def create():
             return render_template("contact/create.html", previous_data=request.form, error=True)
         if email_username and email_domain:
             email = email_username + "@" + email_domain # Format email
-        address = request.form["address"]
-        if 'favorite' in request.form:
-            favorite = 1 if request.form["favorite"] else 0
+        address = request.form["address"] if request.form["address"] else None
+        favorite = 1 if 'favorite' in request.form else 0
         # Add contact to database
         db = get_db()
         db.execute(
