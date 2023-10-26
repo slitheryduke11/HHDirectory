@@ -1,3 +1,4 @@
+import requests
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
@@ -143,3 +144,34 @@ def edit(contact_id):
         return redirect(url_for("contact.detail", contact_id=contact_id))
     # Show form to edit contact
     return render_template("contact/edit.html", contact=contact)
+
+
+@bp.route("/public-data/")
+def get_public_data():
+    """Show public data from randomuser.me API."""
+    url = "https://randomuser.me/api/"
+    # Parameters for API request
+    params = {
+        "nat": "US",  
+        "results": 10,
+    }
+    # Get data from API
+    try:
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            persons = data["results"]
+            contacts = []
+            for person in persons:
+                contact = {
+                    "name": person["name"]["first"],
+                    "lastname": person["name"]["last"],
+                    "email": person["email"],
+                    "address": person["location"]["street"]["number"]
+                }
+                contacts.append(contact)
+        error = False
+    # Handle errors
+    except requests.exceptions.RequestException as e:
+        error = "Service temporarily unavailable."
+    return render_template("contact/public_data.html", contacts=contacts, error=error)
