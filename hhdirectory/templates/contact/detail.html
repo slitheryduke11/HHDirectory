@@ -48,7 +48,7 @@
                     <div class="d-flex justify-content-between">
                         <strong class="text-gray-dark">Email</strong>
                     </div>
-                    <span class="d-block">{{ contact.email }}</span>
+                    <span class="d-block">{% if contact.email %}{{ contact.email }}{% endif %}</span>
                 </div>
             </div>
             <div class="d-flex text-body-secondary pt-3">
@@ -57,7 +57,7 @@
                     <div class="d-flex justify-content-between">
                         <strong class="text-gray-dark">Address</strong>
                     </div>
-                    <span class="d-block">{{ contact.address }}</span>
+                    <span class="d-block">{% if contact.address %}{{ contact.address }}{% endif %}</span>
                 </div>
             </div>
         </div>
