@@ -24,9 +24,11 @@
         <div style="text-align: center;">
             <h1 class="text-body-emphasis">{{ contact.name }} {{ contact.lastname }} {% if contact.favorite %}<svg class="icon" viewBox="0 0 16 16"><use xlink:href="#star-icon"></use></svg>{% endif %}</h1>
             <p class="fs-5"></p> <!-- Add space -->
-            <div class="mb-5">
-                <a href="../examples/" class="btn btn-primary btn px-4">Edit</a>
-                <a href="../examples/" class="btn btn-danger btn px-4">Delete</a>
+            <div class="mb-5 d-flex gap-1 justify-content-center">
+                <a href="{{ url_for('contact.edit', contact_id=contact.id)}}" class="btn btn-primary btn px-4">Edit</a>
+                <form action="{{ url_for('contact.delete', contact_id=contact.id) }}" method="POST">
+                    <button type="submit" class="btn btn-danger px-4">Delete</button>
+                </form>
             </div>
         </div>
         <hr>
