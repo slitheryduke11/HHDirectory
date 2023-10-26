@@ -31,10 +31,13 @@ def create():
         email_username = request.form["email_username"]
         email_domain = request.form["email_domain"]
         email = None
+        email_sign_error = {"username": "@" in email_username, "domain": "@" in email_domain}
         # Check if necessary data is present
-        if not name or not lastname or not phone:
-            return render_template("contact/create.html", previous_data=request.form, error=True)
-        if email_username and email_domain:
+        if (not name or not lastname or not phone) or\
+                (email_username and not email_domain or not email_username and email_domain) or\
+                (email_sign_error["username"] or email_sign_error["domain"]):
+            return render_template("contact/create.html", previous_data=request.form, email_sign_error=email_sign_error, error=True)
+        if email_username or email_domain:
             email = email_username + "@" + email_domain # Format email
         address = request.form["address"] if request.form["address"] else None
         favorite = 1 if 'favorite' in request.form else 0
@@ -118,10 +121,13 @@ def edit(contact_id):
         email_username = request.form["email_username"]
         email_domain = request.form["email_domain"]
         email = None
+        email_sign_error = {"username": "@" in email_username, "domain": "@" in email_domain}
         # Check if necessary data is present
-        if not name or not lastname or not phone:
-            return render_template("contact/edit.html", previous_data=request.form, contact=contact, error=True)
-        if email_username and email_domain:
+        if (not name or not lastname or not phone) or\
+                (email_username and not email_domain or not email_username and email_domain) or\
+                (email_sign_error["username"] or email_sign_error["domain"]):
+            return render_template("contact/create.html", previous_data=request.form, email_sign_error=email_sign_error, error=True)
+        if email_username or email_domain:
             email = email_username + "@" + email_domain # Format email
         address = request.form["address"] if request.form["address"] else None
         favorite = 1 if 'favorite' in request.form else 0

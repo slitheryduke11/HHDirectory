@@ -59,7 +59,9 @@
                 <div class="input-group">
                     <input 
                         type="text" 
-                        class="form-control" 
+                        pattern="[^@]*" 
+                        title="example@mail.com" 
+                        class="form-control {% if error and (not previous_data['email_username'] and previous_data['email_domain'] or email_sign_error.username) %}is-invalid{% endif %}" 
                         name="email_username" 
                         id="email_username" 
                         value="{% if previous_data %}{{previous_data['email_username']}}{% endif %}"
@@ -67,7 +69,9 @@
                     <span class="input-group-text" id="prepend">@</span>
                     <input 
                         type="text" 
-                        class="form-control" 
+                        pattern="[^@]*" 
+                        title="example@mail.com" 
+                        class="form-control {% if error and (previous_data['email_username'] and not previous_data['email_domain'] or email_sign_error.domain) %}is-invalid{% endif %}" 
                         name="email_domain" 
                         id="email_domain" 
                         aria-describedby="prepend" 
