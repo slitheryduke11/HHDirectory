@@ -127,7 +127,7 @@ def edit(contact_id):
         if (not name or not lastname or not phone) or\
                 (email_username and not email_domain or not email_username and email_domain) or\
                 (email_sign_error["username"] or email_sign_error["domain"]):
-            return render_template("contact/create.html", previous_data=request.form, email_sign_error=email_sign_error, error=True)
+            return render_template("contact/edit.html", previous_data=request.form, email_sign_error=email_sign_error, error=True)
         if email_username or email_domain:
             email = email_username + "@" + email_domain # Format email
         address = request.form["address"] if request.form["address"] else None
